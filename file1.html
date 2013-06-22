@@ -1,4 +1,62 @@
 <!DOCTYPE html>
 <html>
-
+<head>
+	<style type="text/css">
+		#container {
+			border: 1px solid red;
+		}
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+	<script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v4.5.4.min.js"></script>
+	<script defer="defer">
+	
+	// array of lines
+	
+		var stage = new Kinetic.Stage({
+			container: 'container',
+			width	 : 1024,
+			height	 : 2000
+		});
+		
+		var line0 = new Kinetic.Line({
+			x: 100,
+			y: 100,
+			points: [100, 200, 300, 400, 450, 120, 454, 20],
+			stroke: 'blue'
+		});
+		
+		var line1 = new Kinetic.Line({
+			x: 100,
+			y: 50,
+			points: [73, 70, 340, 23, 450, 60, 500, 20],
+			stroke: 'red'
+		});
+		
+		var line = new Kinetic.Line({
+			x : 100,
+			y : 50,
+			points : [100, 200, 300, 400],
+			stroke: 'green',
+			dashArray: [33, 10],
+			shadowColor: 'black',
+			shadowBlur: 10,
+			shadowOffset: 10,
+			shadowOpacity: 0.5
+		});
+		
+		
+		var layer = new Kinetic.Layer();
+		layer.add(line0);
+		layer.add(line);
+		layer.add(line1);
+		//layer.add(line);
+		//layer.draw();
+		
+		stage.add(layer);
+		
+	</script>
+	
+</body>
 </html>
