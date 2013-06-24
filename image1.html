@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container" style="border: 1px solid white"></div>
+    <script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v4.5.4.min.js"></script>
+    <script>
+      function loadImages(sources, callback) {
+        var images = {};
+        var loadedImages = 0;
+        var numImages = 0;
+        // get num of sources
+        for(var src in sources) {
+          numImages++;
+        }
+        for(var src in sources) {
+          images[src] = new Image();
+          console.log(images);
+          images[src].onload = function() {
+            if(++loadedImages >= numImages) {
+              callback(images);
+            }
+          };
+          images[src].src = sources[src];
+        }
+      }
+      function initStage(images) {
+        var stage = new Kinetic.Stage({
+          container: 'container',
+          width: 578,
+          height: 500
+        });
+        var layer = new Kinetic.Layer();
+
+        // darth vader
+        var darthVaderImg = new Kinetic.Image({
+          image: images.darthVader,
+          x: 100,
+          y: 40,
+          width: 200,
+          height: 137,
+          draggable: true,
+          stroke: 'red',
+          strokeWidth: 10,
+          strokeEnabled: false
+        });
+
+        layer.add(darthVaderImg);
+
+        // yoda
+        var yodaImg = new Kinetic.Image({
+          image: images.yoda,
+          x: 350,
+          y: 55,
+          width: 93,
+          height: 104,
+          draggable: true,
+          stroke: 'red',
+          strokeWidth: 10,
+          strokeEnabled: false
+        });
+
+        layer.add(yodaImg);
+        stage.add(layer);
+
+        // use event delegation to update pointer style
+        // and apply borders
+        layer.on('mouseover', function(evt) {
+          var shape = evt.shape;
+          document.body.style.cursor = 'pointer';
+          shape.enableStroke();
+          layer.draw();
+        });
+        layer.on('mouseout', function(evt) {
+          var shape = evt.shape;
+          document.body.style.cursor = 'default';
+          shape.disableStroke();
+          layer.draw();
+        });
+      }
+      var sources = {
+        darthVader: 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg',
+        yoda: 'http://www.html5canvastutorials.com/demos/assets/yoda.jpg'
+      };
+      loadImages(sources, initStage);
+
+    </script>
+  </body>
+</html>

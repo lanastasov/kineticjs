@@ -6,6 +6,7 @@ var stage = new Kinetic.Stage({
 	width	 : 1024,
 	height	 : 2000
 });
+
 var layer = new Kinetic.Layer();
 
 
@@ -25,11 +26,11 @@ var line1 = new Kinetic.Line({
 });
 
 var line2 = new Kinetic.Line({
-	x : 300,
-	y : 300,
-	points : [0, 0, 300, 300],
+	x : 400,
+	y : 400,
+	points : [0, 0, 400, 400],
 	stroke: 'green',
-	dashArray: [66, 5],
+	dashArray: [80, 20],
 	shadowColor: 'black',
 	shadowBlur: 20,
 	shadowOffset: 2,
@@ -38,32 +39,53 @@ var line2 = new Kinetic.Line({
 	strokeWidth: 5
 });
 
-var rect = new Kinetic.Rect({
-	x: 100,
-	y: 100,
-	width: 200,
-	height: 50,
-	fill: 'yellow',
-	stroke: 'red',
-	strokeWidth: 2,
-	opacity: 0.2
-});
-
-
-
-layer.add(rect);
-layer.add(line2);
-
-//line2.setOffset(100, 100);
-var tween = new Kinetic.Tween({
-	node: line2, 
-	duration: 10	,
+var circle0 = new Kinetic.Circle({
 	x: 300,
 	y: 300,
+	radius: 3,
+	fill: 'red',
+	stroke: 'black',
+});
+
+var circle = new Kinetic.Circle({
+	x: 400,
+	y: 400,
+	radius: 3,
+	fill: 'red',
+	stroke: 'black',
+});
+
+var circle1 = new Kinetic.Circle({
+	x: 500,
+	y: 500,
+	radius: 3,
+	fill: 'red',
+	stroke: 'black',
+});
+
+var circle2 = new Kinetic.Circle({
+	x: 700,
+	y: 700,
+	radius: 3,
+	fill: 'red',
+	stroke: 'black'
+});
+
+layer.add(circle2);
+layer.add(circle1);
+layer.add(circle);
+layer.add(circle0);
+
+layer.add(line2);
+// line2.setOffset(100, 100);
+var tween = new Kinetic.Tween({
+	node: line2, 
+	duration: 10,
+	x: 0,
+	y: 0,
 	fill: 'red',
 	rotation: Math.PI*2,
 	opacity: 1,
-	strokeWidth: 1,
 	scaleX: 1,
 	shadowColor: 'black',
 	shadowBlur: 20,
@@ -73,21 +95,21 @@ var tween = new Kinetic.Tween({
 	strokeWidth: 5
 });
 
-
-rect.on('click', function() {
-	console.log(this);
+setTimeout(function(){
 	tween.play();
-});
+	//tween.reverse();
+}, 400);
 
-// line2.on('click', function() {
-	// tween.play();
-	// console.log(this);
-// });
+
+
+line2.on('click', function() {
+	tween.reverse();
+	console.log(this);
+});
 
 layer.add(line0);
 layer.add(line1);
 layer.add(line2);
-layer.add(rect);
 //layer.draw();
 
 
